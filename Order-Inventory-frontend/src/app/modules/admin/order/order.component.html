@@ -1,0 +1,586 @@
+<body>
+
+  <div class="grid-container">
+
+      <div class="grid-item">
+
+        <h3><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg> Orders</h3>
+
+        <form (ngSubmit)="getAllOrders()">
+
+          <div class="form-group">
+
+            <input
+
+              type="number"
+
+              id="orderId"
+
+              placeholder="Order ID"
+
+              class="form-control"
+
+              name="orderId"
+
+              [(ngModel)]="Order.orderId"
+
+              required>
+              <div *ngIf="!Order.orderId" class="text-danger">*OrderID is required.</div>
+
+          </div>
+
+          <div class="form-group">
+
+            <input
+
+              type="date"
+
+              id="orderTimestamp"
+
+              placeholder="Order TimeStamp"
+
+              class="form-control"
+
+              name="orderTimestamp"
+
+              [(ngModel)]="Order.orderTimestamp"
+
+              required>
+              <div *ngIf="!Order.orderTimestamp" class="text-danger">*Order TimeStamp is required.</div>
+
+          </div>
+
+          <div class="form-group">
+
+            <input
+
+              type="number"
+
+              id="customerId"
+
+              placeholder="Customer Id"
+
+              class="form-control"
+
+              name="customerId"
+
+              [(ngModel)]="Order.customer.customerId"
+
+              required>
+              <div *ngIf="!Order.customer.customerId" class="text-danger">*CustomerID is required.</div>
+
+          </div>
+
+          <div class="form-group">
+
+            <input
+
+              type="text"
+
+              id="orderStatus"
+
+              placeholder="Order Status"
+
+              class="form-control"
+
+              name="orderStatus"
+
+              [(ngModel)]="Order.orderStatus"
+
+              required>
+              <div *ngIf="!Order.orderStatus" class="text-danger">*OrderStatus is required.</div>
+
+          </div>
+
+          <div class="form-group">
+
+            <input
+
+              type="number"
+
+              id="storeId"
+
+              placeholder="Store Id"
+
+              class="form-control"
+
+              name="storeId"
+
+              [(ngModel)]="Order.store.storeId"
+
+              required>
+              <div *ngIf="!Order.store.storeId" class="text-danger">*StoreID is required.</div>
+
+          </div>
+
+         
+
+          <!-- Button -->
+
+          <input
+
+            type="submit"
+
+            class="btn btn-primary w-100"
+
+            value="Add Order"
+
+            name=""
+
+            *ngIf="!updateBind"
+
+            [disabled]="!isFormValid()"
+
+            (click)="addOrder()"
+
+          />
+
+          <input
+
+            type="submit"
+
+            class="btn btn btn-success w-100"
+
+            value="Update Order"
+
+            name=""
+
+            *ngIf="updateBind"
+
+            (click)="updateOrder()"
+
+          />
+
+          <input
+
+            type="submit"
+
+            class="btn btn-info w-100"
+
+            value="Clear"
+
+            name=""
+
+           
+
+            (click)="goBackToAdd()"
+
+          />
+
+        </form>
+
+      </div>
+
+
+
+
+      <div class="grid-item">
+
+          <!-- Filters -->
+
+          <div class="grid-container">
+
+            <div class="grid-item">
+
+              <br />
+
+              <input
+
+                type="submit"
+
+                class="btn btn-warning w-100"
+
+                value="Get Orders By Status"
+
+                name=""
+
+                (click)="getFilterForStatus()"
+
+              />
+
+              <br />
+
+              <input
+
+                type="submit"
+
+                class="btn btn-warning w-100"
+
+                value="Get Orders By Store"
+
+                name=""
+
+                (click) = "getFilterForStore()"
+
+              />
+
+              <div class="grid-item" *ngIf="filterForStatus">
+
+                <br />
+
+                <div class="form-group">
+
+                  <input
+
+                    type="text"
+
+                    id="status"
+
+                    placeholder="status"
+
+                    class="form-control"
+
+                    name="orderStatus"
+
+                    [(ngModel)]="orderStatus"
+
+                  />
+
+                  <input
+
+                    type="submit"
+
+                    class="btn btn btn-success w-100"
+
+                    value="Get Orders count by Status"
+
+                    name=""
+
+                    (click)="getOrderCountByStatus()"
+
+                  />
+
+                  <input
+
+                    type="submit"
+
+                    class="btn btn-info w-100"
+
+                    value="Go Back"
+
+                    name=""
+
+                    (click)="goBackToAdd()"
+
+                  />
+
+                </div>
+
+              </div>
+
+              <div class="grid-item" *ngIf="filterForStore">
+
+                <br />
+
+                <div class="form-group">
+
+                  <input
+
+                    type="number"
+
+                    id="storeid"
+
+                    placeholder="Store Id"
+
+                    class="form-control"
+
+                    name="storeId"
+
+                    [(ngModel)]="storeId"
+
+                  />
+
+                 
+
+                  <input
+
+                    type="submit"
+
+                    class="btn btn btn-success w-100"
+
+                    value="Get orders by Store"
+
+                    name=""
+
+                    (click)="getOrderListByStoreId()"
+
+                  />
+
+                  <input
+
+                    type="submit"
+
+                    class="btn btn-info w-100"
+
+                    value="Go Back"
+
+                    name=""
+
+                    (click)="goBackToAdd()"
+
+                  />
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+       
+
+        <table *ngIf="filterForStore" class="table table-striped table-dark table-hover">
+
+
+
+
+          <thead class="thead-dark">
+       
+       
+       
+       
+            <tr >
+       
+              
+            <th>Order Id</th>
+        
+            <th>Order Status</th>
+       
+            
+            <th>Store Name</th>
+       
+            <th>Web Address</th>
+       
+            </tr>
+       
+          </thead>
+       
+          <tbody>
+       
+       
+       
+       
+            <tr *ngFor="let ord of orderStoreList">
+       
+       
+       
+       
+            <td>{{ord.orderId}}</td>
+       
+       
+       
+       
+            <td>{{ord.orderStatus}}</td>
+       
+       
+       
+       
+            <td>{{ord.storeName}}</td>
+       
+       
+       
+       
+            <td>{{ord.webAddress}}</td>
+       
+       
+       
+       
+          </tr>
+       
+       
+       
+       
+          </tbody>
+       
+       
+       
+       
+         </table>
+
+      </div>
+
+
+      <div>
+
+       
+
+        <table *ngIf="filterForStatus" class="table table-striped table-dark table-hover">
+
+
+
+
+          <thead class="thead-dark">
+       
+       
+       
+       
+            <tr >
+       
+              
+            <th>Order Status</th>
+        
+            <th>Count</th>
+       
+            </tr>
+       
+          </thead>
+       
+          <tbody>
+       
+       
+       
+       
+            <tr *ngFor="let ords of order">
+       
+       
+       
+       
+            <td>{{ords.orderStatus}}</td>
+       
+       
+       
+       
+            <td>{{ords.count}}</td>
+       
+       
+       
+       
+       
+       
+          </tr>
+       
+       
+       
+       
+          </tbody>
+       
+       
+       
+       
+         </table>
+
+      </div>
+
+
+
+
+
+ 
+
+
+
+
+      <div>
+
+          <button class="btn btn-danger" (click)="getAllOrders()">
+
+            Get All Order Details
+
+          </button>
+
+     
+
+          <br />
+
+
+
+
+
+
+<table class="table table-striped table-dark table-hover">
+
+
+
+
+  <thead class="thead-dark">
+
+      <tr>
+
+          <th>orderId</th>
+
+          <th>orderTimeStamp</th>
+
+          <th>customerId</th>
+
+          <th>orderStatus</th>
+
+          <th>storeId</th>
+
+          <th>Actions</th>
+
+      </tr>
+
+
+
+
+
+  </thead>
+
+
+
+
+  <tbody>
+
+      <tr *ngFor="let orders of Orders">
+
+          <td>{{orders.orderId}}</td>
+
+          <td>{{orders.orderTimestamp}}</td>
+
+          <td>{{orders.customer.customerId}}</td>
+
+          <td>{{orders.orderStatus}}</td>
+
+          <td>{{orders.store.storeId}}</td>
+
+          <td>
+
+              <button
+
+                class="btn btn-warning"
+
+                (click)="getOrderToUpdate(orders)"
+
+              >
+
+                Update
+
+              </button>
+
+              <button class="btn btn-danger" (click)="deleteOrder(Order)">
+
+                Delete
+
+              </button>
+
+         
+
+      </tr>
+
+  </tbody>
+
+
+
+
+
+
+</table>
+
+      </div >
+
+     
+
+
+
+
+  </body>

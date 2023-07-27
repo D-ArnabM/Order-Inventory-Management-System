@@ -1,0 +1,316 @@
+<body>
+
+<div class="grid-container">
+  <div class="grid-item">
+    <h3><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+    </svg> Customer</h3>
+    <form (ngSubmit)="getAllCusts()">
+      <div class="form-group">
+        <input
+          type="number"
+          id="customerId"
+          placeholder="Customer ID"
+          class="form-control"
+          name="customerId"
+          [(ngModel)]="customer.customerId"
+        required>
+        <div *ngIf="!customer.customerId" class="text-danger">*ID is required.</div>
+      </div>
+      <div class="form-group">
+        <input
+            type="email"
+            id="emailAddress"
+            placeholder="Email Address"
+            class="form-control"
+            name="emailAddress"
+            [(ngModel)]="customer.emailAddress" name="email"
+            required
+          
+            
+        >
+        <div *ngIf="!customer.emailAddress" class="text-danger">*Email is required.</div>
+
+        <div *ngIf="customer.emailAddress && !validateEmail(customer.emailAddress)" class="text-danger">Invalid email format.</div>
+
+        
+        </div>
+
+
+
+        
+
+        
+       
+      
+      <div class="form-group">
+        <input
+          type="text"
+          id="fullName"
+          placeholder="Full Name"
+          class="form-control"
+          name="fullName"
+          [(ngModel)]="customer.fullName"
+          required>
+          <div *ngIf="!customer.fullName" class="text-danger">*Name is required.</div>
+      </div>
+      <input
+        type="submit"
+        class="btn btn-primary w-100"
+        value="Add Customer"
+        name=""
+        [disabled]="!isFormValid()"
+        (click)="addCustomer()" 
+      />
+      <input
+        type="submit"
+        class="btn btn btn-success w-100"
+        value="Update Customer"
+        name=""
+        *ngIf="bind && !filterForEmail"
+        (click)="updateCustomer()"
+      />
+      <input
+        type="submit"
+        class="btn btn-info w-100"
+        value="Reset"
+        name=""
+        (click)="goBackToAdd()"
+      />
+    </form>
+  </div>
+  <div class="grid-item">
+    <!-- Filters -->
+    <div class="grid-container">
+      <div class="grid-item">
+        <br>
+        <input
+          type="submit"
+          class="btn btn-warning w-100"
+          value="Get Customers By EmailAddress"
+          name=""
+          (click)="setUpGetUsersByEmailAddress()"
+        />
+        <br>
+        <input
+          type="submit"
+          class="btn btn-warning w-100"
+          value="Get Customers By First Name"
+          name=""
+          (click)="setUpGetUsersByFirstName()"
+        />
+        <br>
+        <input
+          type="submit"
+          class="btn btn-warning w-100"
+          value="Get Customers Count By Shipment Status"
+          name=""
+          (click)="getShipmentStatusCustomerCount()"
+        />
+
+      </div>
+      
+
+      <div class="grid-item" *ngIf="filterForEmail">
+        <br>
+        <div class="form-group">
+          <input
+            type="text"
+            id="emailAddress"
+            placeholder="Email Address"
+            class="form-control"
+            name="emailAddress"
+            [(ngModel)]="customer.emailAddress"
+          />
+          <input
+            type="submit"
+            class="btn btn btn-success w-100"
+            value="Get Customers By Email Address"
+            name=""
+            (click)="getCustomersByEmailAddress()"
+          />
+          <input
+            type="submit"
+            class="btn btn-info w-100"
+            value="Go Back"
+            name=""
+            (click)="goBackToAdd()"
+          />
+        </div>
+      </div>
+
+      <div class="grid-item" *ngIf="filterForName">
+        <br>
+        <div class="form-group">
+          <input
+            type="text"
+            id="emailAddress"
+            placeholder="First Name"
+            class="form-control"
+            name="emailAddress"
+            [(ngModel)]="customer.fullName"
+          />
+          <input
+            type="submit"
+            class="btn btn btn-success w-100"
+            value="Get Customers By First Name"
+            name=""
+            (click)="getCustomersByFirstName()"
+          />
+          <input
+            type="submit"
+            class="btn btn-info w-100"
+            value="Go Back"
+            name=""
+            (click)="goBackToAdd()"
+          />
+        </div>
+      </div>
+
+     
+
+
+
+      <div class="grid-item" *ngIf="enableShipmentStatusCustomerCount">
+        <br>
+        <div class="form-group">
+            <input
+              type="submit"
+              class="btn btn btn-success w-100"
+              value="Go Back"
+              name=""
+              (click)="goBackToAdd()"
+            />
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+
+
+<br>
+<div>
+  <button class="btn btn-danger" (click)="getAllCusts()">
+    Get All Customer Details
+  </button>
+
+  <br>
+
+  <table *ngIf = "enableShipmentStatusCustomerCount" class="table table-striped table-dark table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Shipment Status</th>
+        <th scope="col">Customer Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of shipmentStatusCustomerCount">
+        <th scope="row">{{ data.shipmentStatus }}</th>
+        <td>{{ data.count }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<br>
+
+<div class="card" *ngIf="customerOrderCheck || customerShipmentCheck">
+  <h5 class="card-header">Customer Details</h5>
+  <div class="card-body">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+      <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
+      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    </svg>
+    <h5 class="card-title">Customer Name : {{fullName}}</h5>
+    <p class="card-text">Customer Id : {{customerId}}
+      <br>
+      Email Address : {{emailAddress}}
+    </p>
+  </div>
+</div>
+
+<br>
+
+<div class="card card-notfound" *ngIf="(customerOrderCheck && customerOrders.order.length == 0) || (customerShipmentCheck && customerShipments.shipment.length == 0)" (click)="getAllCusts()">
+  <div class="card-body">
+    <h5 class="card-title notfound">No Data Found</h5>
+  </div>
+</div>
+
+<table class="table table-striped table-dark table-hover" *ngIf="customerOrderCheck && customerOrders.order.length != 0">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Order Id</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Order Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of customerOrders.order">
+      <th scope="row">{{ order.orderId }}</th>
+      <td>{{ order.orderTimestamp }}</td>
+      <td>{{ order.orderStatus }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped table-dark table-hover" *ngIf="customerShipmentCheck && customerShipments.shipment.length != 0">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Shipment Id</th>
+      <th scope="col">Store Id</th>
+      <th scope="col">Delivery Address</th>
+      <th scope="col">Shipment Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let shipment of customerShipments.shipment">
+      <th scope="row">{{ shipment.shipmentId }}</th>
+      <td>{{ shipment.store.storeId }}</td>
+      <td>{{ shipment.deliveryAddress }}</td>
+      <td>{{ shipment.shipmentStatus }}</td>
+    </tr>
+  </tbody>
+</table>
+
+  <table class="table table-striped table-dark table-hover" *ngIf="!customerOrderCheck || !customerShipmentCheck">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Email Address</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <th scope="row">{{ customer.customerId }}</th>
+        <td>{{ customer.fullName }}</td>
+        <td>{{ customer.emailAddress }}</td>
+        <td>
+          <button
+            class="btn btn-warning"
+            (click)="getCustomerToUpdate(customer)"
+          >
+            Update
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="getCustomerOrders(customer.customerId)"
+          >
+            Orders Details
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="getShipments(customer.customerId)"
+          >
+            Shipment Details
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</body>

@@ -1,0 +1,305 @@
+<body>
+  <div class="grid-container">
+
+      
+      <!-- Filters -->
+
+        <div class="grid-item">
+          <h3>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-shop"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"
+              />
+            </svg>
+            Inventory
+          </h3>
+          <br>
+          <input
+            type="submit"
+            class="btn btn-warning w-100"
+            value="Get All Inventory"
+            (click)="getAllInventory()"
+          />
+          <br />
+          <input
+            type="submit"
+            class="btn btn-primary w-100"
+            value="Get Products customer store By Order ID"
+            (click)="setUpGetUsersByOrderId()"
+          />
+          <br />
+          <input
+            type="submit"
+            class="btn btn-primary w-100"
+            value="Get Inventory Details By Order ID"
+            (click)="setUpGetByOrderId()"
+          />
+          <br />
+          <input
+            type="submit"
+            class="btn btn-primary w-100"
+            value="Get Product Order Status By Store ID"
+            (click)="setUpGetOrderstatusbystoreId()"
+          />
+
+          <br />
+          <input
+            type="submit"
+            class="btn btn-primary w-100"
+            value="Get Inventory By shipment Id"
+            (click)="setUpInventoryByshipmentId()"
+          />
+
+          <br />
+          <input
+            type="submit"
+            class="btn btn-light w-100"
+            value="Get Count of Sold Products by Shipment Status"
+            (click)="getCountOfSoldProductsByShipmentStatus()"
+          />
+        </div>
+        <div class="grid-item">
+          <br />
+          <br>
+          <br>
+          <div class="form-group" *ngIf="filterForOrderId">
+            <input
+              type="text"
+              id="orderId"
+              placeholder="ProductCustomerStoreByOrderId"
+              class="form-control"
+              name="orderId"
+              [(ngModel)]="storeId"
+            />
+
+            <input
+              type="submit"
+              class="btn btn btn-success w-100"
+              value="Get Products By Order Id"
+              name=""
+              (click)="getProductCustomerStoreByOrderId()"
+            />
+            <input
+              type="submit"
+              class="btn btn-info w-100"
+              value="Go Back"
+              name=""
+              (click)="goBackToAdd()"
+            />
+          </div>
+
+
+          <div class="form-group" *ngIf="filterOrderId">
+            <input
+              type="text"
+              id="orderId"
+              placeholder="Inventory DetailsBy OrderId"
+              class="form-control"
+              name="orderId"
+              [(ngModel)]="orderId"
+            />
+
+            <input
+              type="submit"
+              class="btn btn btn-success w-100"
+              value="Get Inventory  details By Order Id"
+              name=""
+              (click)="getInventoryDetailsByOrderId()"
+            />
+            <input
+              type="submit"
+              class="btn btn-info w-100"
+              value="Go Back"
+              name=""
+              (click)="goBackToAdd()"
+            />
+          </div>
+
+
+          <div class="form-group" *ngIf="filterbystoreId">
+            <input
+              type="text"
+              id="storeId"
+              placeholder="Product OrderStatus By StoreId"
+              class="form-control"
+              name="storeId"
+              [(ngModel)]="storeId"
+            />
+
+            <input
+              type="submit"
+              class="btn btn btn-success w-100"
+              value="Get Inventory details By Store Id"
+              name=""
+              (click)="getProductOrderStatusByStoreId()"
+            />
+
+            <input
+              type="submit"
+              class="btn btn-info w-100"
+              value="Go Back"
+              name=""
+              (click)="goBackToAdd()"
+            />
+          </div>
+
+          <div class="form-group" *ngIf="filterbyshipment">
+            <input
+              type="text"
+              id="storeId"
+              placeholder="Product InventoryStatus ByShipmentId"
+              class="form-control"
+              name="storeId"
+              [(ngModel)]="storeId"
+            />
+            <input
+              type="submit"
+              class="btn btn btn-success w-100"
+              value="Get Inventory  details By shipment Id"
+              name=""
+              (click)="getInventoryShipmentById()"
+            />
+            <input
+              type="submit"
+              class="btn btn-info w-100"
+              value="Go Back"
+              name=""
+              (click)="goBackToAdd()"
+            />
+          </div>
+        </div>
+          <div class="form-group" *ngIf="filterbyshipmentstatus">
+            <input
+              type="submit"
+              class="btn btn-info w-100"
+              value="Go Back"
+              name=""
+              (click)="goBackToAdd()"
+            />
+          </div>
+        </div>
+  <br />
+  <table
+    *ngIf="filterForOrderId"
+    class="table table-striped table-dark table-hover"
+  >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Store ID</th>
+        <th scope="col">Customer ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row">{{ productCustomerStore.product.productId }}</td>
+        <td scope="row">{{ productCustomerStore.product.productName }}</td>
+        <td scope="row">{{ productCustomerStore.store.storeId }}</td>
+        <td scope="row">{{ productCustomerStore.customer.customerId }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+
+  <table
+    *ngIf="filterOrderId"
+    class="table table-striped table-dark table-hover"
+  >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product Id</th>
+        <th scope="col">Store Id</th>
+        <th scope="col">ShipmentStatus</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ship of inventoryProductStoreShipmentStatusSum">
+        <th scope="row">{{ ship.product.productId }}</th>
+        <td scope="row">{{ ship.store.storeId }}</td>
+        <td scope="row">{{ ship.shipmentStatus }}</td>
+        <td scope="row">{{ ship.total }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table
+    *ngIf="filterbyshipment"
+    class="table table-striped table-dark table-hover"
+  >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">shipment ID</th>
+        <th scope="col">Inventory ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let Invent of inventoryShipment">
+        <th scope="row">{{ Invent.shipment.shipmentId }}</th>
+        <td scope="row">{{ Invent.inventory.inventoryId }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table
+    *ngIf="filterbystoreId"
+    class="table table-striped table-dark table-hover"
+  >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Order Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stu of inventoryStoreProductOrderStatus">
+        <th scope="row">{{ stu.product.productId }}</th>
+        <th scope="row">{{ stu.product.productName }}</th>
+        <th scope="row">{{ stu.orderStatus }}</th>
+      </tr>
+    </tbody>
+  </table>
+  <table
+    *ngIf="filterbyshipmentstatus"
+    class="table table-striped table-dark table-hover"
+  >
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ShipmentStatus</th>
+        <th scope="col">soldProducts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row">{{ shipmentStatusSoldProducts.shipmentStatus }}</td>
+        <td scope="row">{{ shipmentStatusSoldProducts.soldProducts }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <table class="table table-striped table-dark table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Product ID</th>
+          <th scope="col">Store ID</th>
+          <th scope="col">Inventory ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inventory of inventorys">
+          <td>{{ inventory.inventoryId }}</td>
+          <td>{{ inventory.product.productId }}</td>
+          <td>{{ inventory.store.storeId }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

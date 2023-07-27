@@ -1,0 +1,47 @@
+body {
+    background: rgb(17,34,55);
+background: linear-gradient(90deg, rgba(17,34,55,1) 8%, rgba(24,98,147,0.9780287114845938) 55%, rgba(129,56,130,1) 100%);
+    min-height: 90vh;
+    padding-left: 5px;
+    padding-right: 5px;
+    }
+.form-group{
+    margin-bottom: 4px;
+}
+
+.grid-container {
+    display: inline-grid;
+    width: 50%;
+    grid-template-columns: 100% 100%;
+    margin-top: 20px;
+  }
+
+.btn{
+    margin-top: 3px;
+}
+
+h3{
+    color: rgb(178, 179, 188);
+}
+
+.card{
+    background-color:  rgba(255, 255, 255, 0.701);
+    width: fit-content;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.335);
+}
+
+.card-notfound{
+    background-color:  rgba(255, 0, 0, 0.543);
+    width: 100%;
+}
+
+.notfound{
+    color: white;
+    font-size: 200%;
+    text-align: center;
+}
+
+.card-notfound :hover{
+    cursor: pointer;
+    background-color:  rgba(255, 0, 0, 0.677);
+}

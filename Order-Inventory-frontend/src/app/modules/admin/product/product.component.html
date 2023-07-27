@@ -1,0 +1,285 @@
+<body>
+  <div class="grid-container">
+    <div class="grid-item">
+      <h3><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gift-fill" viewBox="0 0 16 16">
+        <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"/>
+      </svg> Product</h3>
+      <form (ngSubmit)="getAllProducts()">
+        <div class="form-group">
+          <input
+            type="number"
+            id="productId"
+            placeholder="Product ID"
+            class="form-control"
+            name="productId"
+            [(ngModel)]="product.productId"
+            required>
+            <div *ngIf="!product.productId" class="text-danger">*ID is required.</div>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="productName"
+            placeholder="Product Name"
+            class="form-control"
+            name="productName"
+            [(ngModel)]="product.productName"
+            required>
+            <div *ngIf="!product.productName" class="text-danger">*Name is required.</div>
+        </div>
+        <div class="form-group">
+          <input
+            type="number"
+            id="unitPrice"
+            placeholder="Unit Price"
+            class="form-control"
+            name="unitPrice"
+            [(ngModel)]="product.unitPrice"
+            required>
+            <div *ngIf="!product.unitPrice" class="text-danger">*Unit Price is required.</div>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="colour"
+            placeholder="Product colour"
+            class="form-control"
+            name="colour"
+            [(ngModel)]="product.colour"
+            required>
+            <div *ngIf="!product.colour" class="text-danger">*Color is required.</div>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="brand"
+            placeholder="Product brand"
+            class="form-control"
+            name="brand"
+            [(ngModel)]="product.brand"
+            required>
+            <div *ngIf="!product.brand" class="text-danger">*Brand is required.</div>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            id="size"
+            placeholder="Product size"
+            class="form-control"
+            name="size"
+            [(ngModel)]="product.size"
+            required>
+            <div *ngIf="!product.size" class="text-danger">*Size is required.</div>
+        </div>
+        <div class="form-group">
+          <input
+            type="number"
+            id="rating"
+            placeholder="Product rating"
+            class="form-control"
+            name="rating"
+            [(ngModel)]="product.rating"
+            required>
+            <div *ngIf="!product.rating" class="text-danger">*Rating is required.</div>
+        </div>
+        <!-- Button -->
+        <input
+          type="submit"
+          class="btn btn-primary w-100"
+          value="Add Product"
+          name=""
+          *ngIf="!updateBind"
+          [disabled]="!isFormValid()"
+          (click)="addProduct()"
+        />
+        <input
+          type="submit"
+          class="btn btn btn-success w-100"
+          value="Update product"
+          name=""
+          *ngIf="updateBind"
+          [disabled]="!isFormValid()"
+          (click)="updateProduct()"
+        />
+        <input
+          type="submit"
+          class="btn btn-info w-100"
+          value="Clear"
+          name=""
+          
+          (click)="goBackToAdd()"
+        />
+      </form>
+    </div>
+    <div class="grid-item">
+      <!-- Filters -->
+      <div class="grid-container">
+        <div class="grid-item">
+          <br />
+          <input
+            type="submit"
+            class="btn btn-warning w-100"
+            value="Get Products By Name"
+            name=""
+            (click)="getFilterForName()"
+          />
+          <br />
+          <input
+            type="submit"
+            class="btn btn-warning w-100"
+            value="Get Products By Price Range"
+            name=""
+            (click) = "getFilterForRange()"
+          />
+
+          <input
+          type="submit"
+          class="btn btn-warning w-100"
+          value="Get Products By Brand"
+          name=""
+          (click)="getFilterForBrand()"
+        />
+        <br />
+
+          
+
+          <div class="grid-container1" *ngIf="filterForBrand">
+            <select class="form-control" (change)="changeBrand($event)">
+              <option > Brands</option>
+              <option >Allen Solly</option>
+              <option >Global Desi</option>
+              <option >Anavila</option>
+              <option >Biba</option>
+              <option >Manyavar</option>
+              <option >Zara</option>
+              <option >H & M</option>
+              <option >	The Label - Ritu Kumar</option>
+              
+              
+            </select>
+            <button class="btn btn-danger" (click)="getProductsByBrand()">Get Products By Brand</button>
+
+
+            <input
+            type="submit"
+            class="btn btn-info w-100"
+            value="Go Back"
+            name=""
+            (click)="goBackToAdd()"
+          />
+            
+          
+          </div>
+
+          <div class="grid-item" *ngIf="filterForName">
+            <br />
+            <div class="form-group">
+              <input
+                type="text"
+                id="emailAddress"
+                placeholder="Preoduct Name"
+                class="form-control"
+                name="productName"
+                [(ngModel)]="product.productName"
+              />
+              <input
+                type="submit"
+                class="btn btn btn-success w-100"
+                value="Get Products By Name"
+                name=""
+                (click)="getProductsByName()"
+              />
+              <input
+                type="submit"
+                class="btn btn-info w-100"
+                value="Go Back"
+                name=""
+                (click)="goBackToAdd()"
+              />
+            </div>
+          </div>
+          <div class="grid-item" *ngIf="filterForRange">
+            <br />
+            <div class="form-group">
+              <input
+                type="number"
+                id="emailAddress"
+                placeholder="Min Price"
+                class="form-control"
+                name="min"
+                [(ngModel)]="min"
+              />
+              <input
+                type="number"
+                id="emailAddress"
+                placeholder="Max Price"
+                class="form-control"
+                name="max"
+                [(ngModel)]="max"
+              />
+              <input
+                type="submit"
+                class="btn btn btn-success w-100"
+                value="Get Products Price Range"
+                name=""
+                (click)="getProductsByPriceRange()"
+              />
+              <input
+                type="submit"
+                class="btn btn-info w-100"
+                value="Go Back"
+                name=""
+                (click)="goBackToAdd()"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button class="btn btn-danger" (click)="getAllProducts()">
+      Get All Product Details
+    </button>
+
+    <br />
+
+    <table class="table table-striped table-dark table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" (click)="sortByField('productId')">Id</th>
+          <th scope="col" (click)="sortByField('productName')">Name</th>
+          <th scope="col" (click)="sortByField('brand')">Brand</th>
+          <th scope="col" (click)="sortByField('colour')">Colour</th>
+          <th scope="col" (click)="sortByField('size')">Size</th>
+          <th scope="col" (click)="sortByField('rating')">Rating</th>
+          <th scope="col" (click)="sortByField('unitPrice')">Price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <th scope="row">{{ product.productId }}</th>
+          <td>{{ product.productName }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.colour }}</td>
+          <td>{{ product.size }}</td>
+          <td>{{product.rating}}</td>
+          <td>{{ product.unitPrice }}</td>
+          <td>
+            <button
+              class="btn btn-warning"
+              (click)="getProductToUpdate(product)"
+            >
+              Update
+            </button>
+            <button class="btn btn-danger" (click)="deleteProduct(product)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>

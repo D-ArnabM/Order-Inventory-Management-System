@@ -1,0 +1,31 @@
+body {
+    background: rgb(17,34,55);
+    background: linear-gradient(90deg, rgba(17,34,55,1) 8%, rgba(24,98,147,0.9780287114845938) 55%, rgba(129,56,130,1) 100%);
+    min-height: 90vh;
+    padding-left: 5px;
+    padding-right: 5px;
+    }
+.form-group{
+    margin-bottom: 4px;
+}
+
+.grid-container {
+    display: inline-grid;
+    width: 50%;
+    grid-template-columns: 100% 100%;
+    margin-top: 20px;
+  }
+
+.btn{
+    margin-top: 3px;
+}
+
+h3{
+    color: rgb(178, 179, 188);
+}
+
+th:hover{
+    background-color: rgb(199, 35, 35);
+    transition-duration: 500ms;
+    cursor: pointer;
+}

@@ -1,0 +1,12 @@
+.navbar{
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.335);
+}
+
+.nav-tabs{
+    border-bottom: 0;
+}
+
+.nav-item:hover{
+    background-color: #813882;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.335);
+}

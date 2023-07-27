@@ -1,0 +1,73 @@
+body {
+  background: rgb(17,34,55);
+  background: linear-gradient(90deg, rgba(17,34,55,1) 8%, rgba(24,98,147,0.9780287114845938) 55%, rgba(129,56,130,1) 100%);
+     
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.0);
+    border-radius: 5px;
+    
+  }
+  .card{
+    background-color: rgba(255, 255, 255, 0.847);
+  }
+  p{
+   
+   
+        color: #2675c4;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+ 
+  
+  
+  h2 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  form {
+    margin-top: 30px;
+  }
+  
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+ 

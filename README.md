@@ -31,7 +31,8 @@
 </p>
 <br>
 <h3>Order Inventory EER Diagram</h3>
-![image](https://github.com/D-ArnabM/Order-Inventory-Management-System/assets/83360173/6ec3abf2-06a5-4ae2-b9a7-9699f270c8a1)
+<img src="https://github.com/D-ArnabM/Order-Inventory-Management-System/assets/83360173/6ec3abf2-06a5-4ae2-b9a7-9699f270c8a1">
+
 <br>
 <h4>LANDING PAGE</h4>
 <img src="https://github.com/D-ArnabM/Order-Inventory-Management-System/assets/83360173/94286279-507a-4a54-8063-ba1a88a23b70">
